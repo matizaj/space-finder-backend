@@ -15,7 +15,7 @@
             "args": [
                 "${relativeFile}"
             ],
-            "env": {"AWS_REGION":"us-east-1"},
+            "env": {"AWS_REGION":"us-east-1", "TABLE_NAME":"SpacesTable", "PRIMARY_KEY":"spaceId"},
             "skipFiles": [
                 "<node_internals>/**"
             ],
