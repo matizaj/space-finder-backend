@@ -17,6 +17,7 @@ export class SpaceStack extends Stack {
         createLambdaPath: 'Create', 
         readLambdaPath: 'Read',
         updateLambdaPath: 'Update',
+        deleteLambdaPath: 'Delete',
         scondaryIndex: ['location']
     });
 
@@ -42,6 +43,7 @@ export class SpaceStack extends Stack {
         spaceResource.addMethod('POST', this.spacesTable.createLambdaIntegration);
         spaceResource.addMethod('GET', this.spacesTable.readLambdaIntegration);
         spaceResource.addMethod('PUT', this.spacesTable.updateLambdaIntegration);
+        spaceResource.addMethod('DELETE', this.spacesTable.deleteLambdaIntegration);
     }
 
 }
