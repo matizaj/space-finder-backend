@@ -6,9 +6,11 @@ import {join} from 'path'
 import { GenericTable } from './GenericTable';
 import {NodejsFunction} from 'aws-cdk-lib/aws-lambda-nodejs'
 import {PolicyStatement} from 'aws-cdk-lib/aws-iam';
+import {AuthorizeWrapper} from './auth/AuthorizerWrapper';
 
 export class SpaceStack extends Stack {
     private api = new RestApi(this, 'SpaceApi');
+    private authorizer: AuthorizeWrapper;
     // private spacesTable = new GenericTable('SpacesTable', 'spaceId', this);
 
     private spacesTable = new GenericTable(this, {
@@ -23,7 +25,7 @@ export class SpaceStack extends Stack {
 
     constructor(scope: Construct, id: string, props: StackProps){
         super(scope, id, props )
-
+        this.authorizer = new AuthorizeWrapper(this, this.api)
         const helloLambdaNodejs = new NodejsFunction(this, 'helloLambdaNodejs', {
             entry: join(__dirname, '..', 'services', 'node-lambda', 'hello.ts'),
             handler: 'handler'

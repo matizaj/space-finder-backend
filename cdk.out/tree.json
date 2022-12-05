@@ -1242,7 +1242,7 @@
                       "s3Bucket": {
                         "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
                       },
-                      "s3Key": "e2ba0d0f30a8622d9583a473a2a3fceaf43e827a28ad6877d449096c628b920a.zip"
+                      "s3Key": "8532dc8cdae9ed10c974fc15025c30bf195c337fa5012969948641d9d71580f5.zip"
                     },
                     "role": {
                       "Fn::GetAtt": [
@@ -1633,7 +1633,7 @@
                       "s3Bucket": {
                         "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
                       },
-                      "s3Key": "2a765c1fd7c95462be39872dbff42e086b1d2952e646cdc0c7cf6b23af1b1050.zip"
+                      "s3Key": "e0db6022dc40331c54b35c037bf49291d551a47aae156145279817af013063a9.zip"
                     },
                     "role": {
                       "Fn::GetAtt": [
@@ -1827,7 +1827,7 @@
                       "s3Bucket": {
                         "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
                       },
-                      "s3Key": "612669e73d85bb33387c1a6f28b98faeb186e26dfcdfb2c7fe1c85ecdbfa70fe.zip"
+                      "s3Key": "b45691a7e70260ff3cd4c90c5689309989c00c256b543c6c5c06c51f238814bf.zip"
                     },
                     "role": {
                       "Fn::GetAtt": [
@@ -1855,6 +1855,68 @@
             },
             "constructInfo": {
               "fqn": "aws-cdk-lib.aws_lambda_nodejs.NodejsFunction",
+              "version": "2.53.0"
+            }
+          },
+          "SpaceUserPool": {
+            "id": "SpaceUserPool",
+            "path": "Space-finder/SpaceUserPool",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "Space-finder/SpaceUserPool/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Cognito::UserPool",
+                  "aws:cdk:cloudformation:props": {
+                    "accountRecoverySetting": {
+                      "recoveryMechanisms": [
+                        {
+                          "name": "verified_phone_number",
+                          "priority": 1
+                        },
+                        {
+                          "name": "verified_email",
+                          "priority": 2
+                        }
+                      ]
+                    },
+                    "adminCreateUserConfig": {
+                      "allowAdminCreateUserOnly": false
+                    },
+                    "aliasAttributes": [
+                      "email"
+                    ],
+                    "autoVerifiedAttributes": [
+                      "email"
+                    ],
+                    "emailVerificationMessage": "The verification code to your new account is {####}",
+                    "emailVerificationSubject": "Verify your new account",
+                    "smsVerificationMessage": "The verification code to your new account is {####}",
+                    "userPoolName": "SpaceUserPool",
+                    "verificationMessageTemplate": {
+                      "defaultEmailOption": "CONFIRM_WITH_CODE",
+                      "emailMessage": "The verification code to your new account is {####}",
+                      "emailSubject": "Verify your new account",
+                      "smsMessage": "The verification code to your new account is {####}"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_cognito.CfnUserPool",
+                  "version": "2.53.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_cognito.UserPool",
+              "version": "2.53.0"
+            }
+          },
+          "UserPoolId": {
+            "id": "UserPoolId",
+            "path": "Space-finder/UserPoolId",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
               "version": "2.53.0"
             }
           },
