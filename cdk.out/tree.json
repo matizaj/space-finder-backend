@@ -1905,6 +1905,59 @@
                   "fqn": "aws-cdk-lib.aws_cognito.CfnUserPool",
                   "version": "2.53.0"
                 }
+              },
+              "SpaceUserPool-client": {
+                "id": "SpaceUserPool-client",
+                "path": "Space-finder/SpaceUserPool/SpaceUserPool-client",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "Space-finder/SpaceUserPool/SpaceUserPool-client/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::Cognito::UserPoolClient",
+                      "aws:cdk:cloudformation:props": {
+                        "userPoolId": {
+                          "Ref": "SpaceUserPool6AB542DC"
+                        },
+                        "allowedOAuthFlows": [
+                          "implicit",
+                          "code"
+                        ],
+                        "allowedOAuthFlowsUserPoolClient": true,
+                        "allowedOAuthScopes": [
+                          "profile",
+                          "phone",
+                          "email",
+                          "openid",
+                          "aws.cognito.signin.user.admin"
+                        ],
+                        "callbackUrLs": [
+                          "https://example.com"
+                        ],
+                        "clientName": "SpaceUserPool-client",
+                        "explicitAuthFlows": [
+                          "ALLOW_USER_PASSWORD_AUTH",
+                          "ALLOW_ADMIN_USER_PASSWORD_AUTH",
+                          "ALLOW_CUSTOM_AUTH",
+                          "ALLOW_USER_SRP_AUTH",
+                          "ALLOW_REFRESH_TOKEN_AUTH"
+                        ],
+                        "generateSecret": false,
+                        "supportedIdentityProviders": [
+                          "COGNITO"
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_cognito.CfnUserPoolClient",
+                      "version": "2.53.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_cognito.UserPoolClient",
+                  "version": "2.53.0"
+                }
               }
             },
             "constructInfo": {
@@ -1917,6 +1970,51 @@
             "path": "Space-finder/UserPoolId",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.53.0"
+            }
+          },
+          "UserPoolClientId": {
+            "id": "UserPoolClientId",
+            "path": "Space-finder/UserPoolClientId",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.53.0"
+            }
+          },
+          "SpaceUserAuthorizer": {
+            "id": "SpaceUserAuthorizer",
+            "path": "Space-finder/SpaceUserAuthorizer",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "Space-finder/SpaceUserAuthorizer/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::ApiGateway::Authorizer",
+                  "aws:cdk:cloudformation:props": {
+                    "name": "SpaceUserAuthorizer",
+                    "restApiId": {
+                      "Ref": "SpaceApi1B373D2B"
+                    },
+                    "type": "COGNITO_USER_POOLS",
+                    "identitySource": "method.request.header.Authorization",
+                    "providerArns": [
+                      {
+                        "Fn::GetAtt": [
+                          "SpaceUserPool6AB542DC",
+                          "Arn"
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_apigateway.CfnAuthorizer",
+                  "version": "2.53.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_apigateway.CognitoUserPoolsAuthorizer",
               "version": "2.53.0"
             }
           },

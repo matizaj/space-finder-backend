@@ -14,6 +14,31 @@ export class AuthorizeWrapper {
 
     private initialize() {
         this.createUserPool();
+        this.addUserPoolClient();
+        this.createAuthorizer();
+    }
+    createAuthorizer() {
+        this.authorizer = new CognitoUserPoolsAuthorizer(this.scope, 'SpaceUserAuthorizer',{
+            cognitoUserPools: [this.userPool],
+            authorizerName:'SpaceUserAuthorizer',
+            identitySource:'method.request.header.Authorization'
+        });
+        this.authorizer._attachToApi(this.api)
+    }
+    addUserPoolClient() {
+        this.userPoolClient = this.userPool.addClient('SpaceUserPool-client', {
+            userPoolClientName:'SpaceUserPool-client',
+            authFlows: {
+                adminUserPassword: true,
+                custom: true,
+                userPassword:true,
+                userSrp: true
+            },
+            generateSecret: false
+        });
+        new CfnOutput(this.scope, 'UserPoolClientId', {
+            value: this.userPoolClient.userPoolClientId
+        })
     }
     createUserPool() {
         this.userPool = new UserPool(this.scope, 'SpaceUserPool', {

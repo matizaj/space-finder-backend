@@ -1355,6 +1355,66 @@
     "aws:cdk:path": "Space-finder/SpaceUserPool/Resource"
    }
   },
+  "SpaceUserPoolSpaceUserPoolclient4839E5E8": {
+   "Type": "AWS::Cognito::UserPoolClient",
+   "Properties": {
+    "UserPoolId": {
+     "Ref": "SpaceUserPool6AB542DC"
+    },
+    "AllowedOAuthFlows": [
+     "implicit",
+     "code"
+    ],
+    "AllowedOAuthFlowsUserPoolClient": true,
+    "AllowedOAuthScopes": [
+     "profile",
+     "phone",
+     "email",
+     "openid",
+     "aws.cognito.signin.user.admin"
+    ],
+    "CallbackURLs": [
+     "https://example.com"
+    ],
+    "ClientName": "SpaceUserPool-client",
+    "ExplicitAuthFlows": [
+     "ALLOW_USER_PASSWORD_AUTH",
+     "ALLOW_ADMIN_USER_PASSWORD_AUTH",
+     "ALLOW_CUSTOM_AUTH",
+     "ALLOW_USER_SRP_AUTH",
+     "ALLOW_REFRESH_TOKEN_AUTH"
+    ],
+    "GenerateSecret": false,
+    "SupportedIdentityProviders": [
+     "COGNITO"
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "Space-finder/SpaceUserPool/SpaceUserPool-client/Resource"
+   }
+  },
+  "SpaceUserAuthorizer401AE1AA": {
+   "Type": "AWS::ApiGateway::Authorizer",
+   "Properties": {
+    "Name": "SpaceUserAuthorizer",
+    "RestApiId": {
+     "Ref": "SpaceApi1B373D2B"
+    },
+    "Type": "COGNITO_USER_POOLS",
+    "IdentitySource": "method.request.header.Authorization",
+    "ProviderARNs": [
+     {
+      "Fn::GetAtt": [
+       "SpaceUserPool6AB542DC",
+       "Arn"
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "Space-finder/SpaceUserAuthorizer/Resource"
+   }
+  },
   "helloLambdaNodejsServiceRole1F883DBC": {
    "Type": "AWS::IAM::Role",
    "Properties": {
@@ -1450,7 +1510,7 @@
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/1WQT0/DMAzFP8vumWGbkLh2Q9yAacB5ShNT3D9xVadMVdXvTtJQsZ3881P84uctPOzgfqUvsja2WteUw/jutalUkM6jbqnQHi96gPGE4rOW1OHLXWFmDPfOqydsax4aDBjUqy64FRi1BGGU+87gXst/8+eZ+AX9N9soJZoU6SZ8z3V6F+uRazJDbBNNqtZNbjWMUcKuIRFiFx889874wJOyg9MN25DwQ+fJbIZl+OzYYinwOpdlTsnurEXQC2SxhB72vanQzxEMF448w/gp2B2Z62i78DTdRHzrfdt7NdvEa5ArbpIHPrCzlNaN20Apdz+bR9hsYbMqhWjdhWNTg3BK9Re6H/8dwAEAAA=="
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/1WRQU/DMAyFf8vuWWCbkLh2Q9yAacB5yhJT3KVxVSdMpep/J2nWsZ38+al+sV+X8mEl72fqxHNtjnOLB9m/e6WPIkr7XjVYKg8n1cl+B+yLBsXmy11hoTUF58UTNJa6GiJG9aqLbiUkLUMcpdBqWCv+b86emV/Af5NJ0kRUOvT0ydBuiSwXIcot/kI7LnDpBoGqjnuSzYapbsmi7lKbaRBW1QejZJ8kaGtkRnLpg+fgtI88CNM5VZOJUXyoQzYbYRreOzJQsXwdyzQneLVXzOBZFqnEXq6DPoIfb9X5CtlPdyTbC0+wsXiO8FYZhpuw3oJvghfjOylXdOVNhpE35Azme9K6suK7n8WjXCzlYlYx4ryNvw1rkLtc/wANr6YpCgIAAA=="
    },
    "Metadata": {
     "aws:cdk:path": "Space-finder/CDKMetadata/Default"
@@ -1488,6 +1548,11 @@
   "UserPoolId": {
    "Value": {
     "Ref": "SpaceUserPool6AB542DC"
+   }
+  },
+  "UserPoolClientId": {
+   "Value": {
+    "Ref": "SpaceUserPoolSpaceUserPoolclient4839E5E8"
    }
   }
  },
