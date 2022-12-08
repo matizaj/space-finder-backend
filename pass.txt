@@ -1,0 +1,3 @@
+user pool:  us-east-1_sAAW436Gj
+my-app-client: 1uq23d23cm73ooaqt09hgf6u7b
+us-east-1:26384cef-52c8-46ed-90fe-25f893c0de9c", // Identity pool ID
